@@ -13,15 +13,22 @@ void main (int argc, char*argv[])
     int programRun = 0;
     int guessRun = 0;
     int maxRun = 0;
-    int max = 10;
 
-    /*Declare int "userInput", "guessNumber", "userGuess"
+
+    /*Declare int "userInput", "guessNumber", "userGuess", "max"
     Declare time_t "t" char 'q' for quit*/
-    int userInput, guessNumber, userGuess;
+    int userInput, guessNumber, userGuess, max;
     time_t t; 
     char q;
     
 
+    /*Declare file for later use*/
+    FILE *fp;
+
+    /*We will make the max = number in max.txt(will start as 10)*/
+    fp = fopen("max.txt","r");
+    fscanf(fp,"%d",&max);
+    fclose(fp);
 
     /*Init random number genereator*/
     srand((unsigned) time(&t));
@@ -29,6 +36,7 @@ void main (int argc, char*argv[])
     /*Do while programRun = 0 */
     do
     {
+        /*
         /*Print out menu with options*/
         printf("\nPress 1 to play a game\n");
         printf("Press 2 to change the max number\n");
@@ -107,6 +115,9 @@ void main (int argc, char*argv[])
                     else
                     {
                         maxRun = 1;
+                        fp = fopen("max.txt","w");
+                        fprintf(fp,"%d", max);
+                        fclose(fp);
                     }
                 }while(maxRun==0);
                 break;
